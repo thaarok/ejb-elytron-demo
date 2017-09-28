@@ -56,6 +56,14 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- dependency on remote EJB interface -->
+        <dependency>
+            <groupId>org.wildfly.tutorial.ejb</groupId>
+            <artifactId>ejb2</artifactId>
+            <type>ejb-client</type>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>

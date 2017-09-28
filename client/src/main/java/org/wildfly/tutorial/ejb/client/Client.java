@@ -5,6 +5,7 @@ import org.wildfly.security.auth.client.AuthenticationContext;
 import org.wildfly.security.auth.client.MatchRule;
 import org.wildfly.security.sasl.SaslMechanismSelector;
 import org.wildfly.tutorial.ejb.ejb1.HelloWorld;
+import org.wildfly.tutorial.ejb.ejb2.HelloUniverse;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -30,7 +31,11 @@ public class Client {
                 properties.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
                 Context context = new InitialContext(properties);
 
-                HelloWorld bean = (HelloWorld) context.lookup("ejb:/ejb1-1.0-SNAPSHOT/HelloWorldBean!org.wildfly.tutorial.ejb.ejb1.HelloWorld");
+                HelloUniverse helloUniverse = (HelloUniverse) context.lookup("ejb:/ejb2-1.0-SNAPSHOT/HelloUniverseBean!org.wildfly.tutorial.ejb.ejb2.HelloUniverse");
+                System.out.println(helloUniverse.sayHi());
+
+                // ejb:/ejb1ear-1.0-SNAPSHOT/ejb1/HelloWorldBean!org.wildfly.tutorial.ejb.ejb1.HelloWorld
+                HelloWorld bean = (HelloWorld) context.lookup("ejb:ejb1ear-1.0-SNAPSHOT/ejb1/HelloWorldBean!org.wildfly.tutorial.ejb.ejb1.HelloWorld");
                 System.out.println(bean.sayHello());
 
             } catch (Exception e) {

@@ -9,6 +9,7 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.util.Properties;
 
 @Stateless
@@ -19,10 +20,26 @@ public class HelloWorldBean implements HelloWorld {
     @Resource
     private SessionContext ejbContext;
 
-    @EJB(lookup = "java:global/ejb2-1.0-SNAPSHOT/HelloUniverseBean!org.wildfly.tutorial.ejb.ejb2.HelloUniverse")
+    @EJB(lookup = "ejb:/ejb2-1.0-SNAPSHOT/HelloUniverseBean!org.wildfly.tutorial.ejb.ejb2.HelloUniverse")
     private HelloUniverse helloUniverse;
 
     public String sayHello() {
+
+        // Alternative 1: working
+        /*
+        try {
+            Properties properties = new Properties();
+            properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory"); // not necessary
+            InitialContext context = new InitialContext(properties);
+            helloUniverse = (HelloUniverse) context.lookup("ejb:/ejb2-1.0-SNAPSHOT/HelloUniverseBean!org.wildfly.tutorial.ejb.ejb2.HelloUniverse");
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        }
+        */
+
+        // Alternative 2: does not work for remote EJBs (lookups within the java: namespace only)
+        //helloUniverse = (HelloUniverse) ejbContext.lookup("java:/ejb2-1.0-SNAPSHOT/HelloUniverseBean!org.wildfly.tutorial.ejb.ejb2.HelloUniverse");
+        
         try {
             return "Hello World caller=" + ejbContext.getCallerPrincipal() + ", " + helloUniverse.sayHi();
         } catch (Exception e) {

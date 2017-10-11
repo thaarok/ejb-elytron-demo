@@ -39,7 +39,7 @@ public class HelloWorldBean implements HelloWorld {
                 .with(MatchRule.ALL, AuthenticationConfiguration.empty()
                         .setSaslMechanismSelector(SaslMechanismSelector.NONE.addMechanism("DIGEST-MD5"))
                         .useName("user2")
-                        .usePassword("user2a")
+                        .usePassword("user2b")
                 ).runAction(() -> {
                     try {
                         Properties properties = new Properties();
@@ -53,7 +53,7 @@ public class HelloWorldBean implements HelloWorld {
                         return ", 1:" + e.toString();
                     }
                 });
-
+/*
         x += AuthenticationContext.empty()
                 .with(MatchRule.ALL, AuthenticationConfiguration.empty()
                         .setSaslMechanismSelector(SaslMechanismSelector.NONE.addMechanism("DIGEST-MD5"))
@@ -71,7 +71,7 @@ public class HelloWorldBean implements HelloWorld {
                         return ", 2:" + e.toString();
                     }
                 });
-
+*/
         return x;
     }
 

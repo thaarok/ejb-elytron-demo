@@ -1,0 +1,28 @@
+
+/subsystem=remoting/http-connector=http-remoting-connector:write-attribute(name=sasl-authentication-factory, value=application-sasl-authentication)
+/subsystem=remoting/http-connector=http-remoting-connector:undefine-attribute(name=security-realm)
+
+
+                <sasl-authentication-factory name="application-sasl-authentication" sasl-server-factory="configured" security-domain="ApplicationDomain">
+                    <mechanism-configuration>
+                        <mechanism mechanism-name="SCRAM-SHA-1">
+                            <mechanism-realm realm-name="ApplicationRealm"/>
+                        </mechanism>
+                        <mechanism mechanism-name="SCRAM-SHA-1-PLUS">
+                            <mechanism-realm realm-name="ApplicationRealm"/>
+                        </mechanism>
+                    </mechanism-configuration>
+                </sasl-authentication-factory>
+
+
+
+                <properties-realm name="ApplicationRealm">
+                    <users-properties path="application-users.properties" relative-to="jboss.server.config.dir" digest-realm-name="ApplicationRealm" plain-text="true"/>
+
+
+
+
+Enable SSL: https://honza889.github.io/2017/10/13/keystore-reload/
+
+
+

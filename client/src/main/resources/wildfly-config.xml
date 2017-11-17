@@ -1,0 +1,16 @@
+<configuration>
+    <authentication-client xmlns="urn:elytron:1.2">
+        <authentication-rules>
+            <rule use-configuration="conf" />
+        </authentication-rules>
+        <authentication-configurations>
+            <configuration name="conf">
+                <sasl-mechanism-selector selector="GS2-KRB5"/>
+                <credentials>
+                    <!-- use ticket cache from kinit -->
+                    <local-kerberos mechanism-names="KRB5" />
+                </credentials>
+            </configuration>
+        </authentication-configurations>
+    </authentication-client>
+</configuration>
